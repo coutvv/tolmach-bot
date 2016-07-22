@@ -31,7 +31,6 @@ public class TelegramBot  extends TelegramLongPollingBot{
 		trans = new Translator(translatorKey);
 	}
 
-	@Override
 	public void onUpdateReceived(Update update) {
 		String text = update.getMessage().getText();
 		SendMessage msg = new SendMessage();
@@ -51,7 +50,6 @@ public class TelegramBot  extends TelegramLongPollingBot{
 		}
 	}
 
-	@Override
 	public String getBotUsername() {
 		return  NAME;
 	}
