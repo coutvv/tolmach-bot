@@ -18,5 +18,6 @@ public class EntryPoint {
 		TelegramBot bot = new TelegramBot(PROPERTIES);
 		TelegramBotsApi api = new TelegramBotsApi();
 		api.registerBot(bot);
+		System.out.println("Tolmach started");
 	}
 }
