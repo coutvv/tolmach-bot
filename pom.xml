@@ -31,4 +31,7 @@
 			<url>https://jitpack.io</url>
 		</repository>
 	</repositories>
+	<build>
+		<finalName>tolmach-bot</finalName>
+	</build>
 </project>
