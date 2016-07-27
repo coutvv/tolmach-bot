@@ -1,4 +1,4 @@
-package ru.coutvv.tolmach.bot;
+package ru.coutvv.tolmach.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,7 +67,7 @@ public class Translator {
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	private String detectLang(String text) throws UnsupportedOperationException, ClientProtocolException, IOException {
+	public String detectLang(String text) throws UnsupportedOperationException, ClientProtocolException, IOException {
 		text = change(text);
 		String url = YANDEX_TRANSLATE_URL + "detect?key=" + key + "&text=" + text;
 		String ans = request(url);
@@ -124,6 +124,7 @@ public class Translator {
 		}
 		return result;
 	}
+	
 
 	/**
 	 * Функция корректировки текста перед отправкой

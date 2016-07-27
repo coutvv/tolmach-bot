@@ -4,10 +4,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+
+import ru.coutvv.tolmach.jpa.entity.Word;
+import ru.coutvv.tolmach.utils.Dictionary;
+import ru.coutvv.tolmach.utils.Translator;
 
 /**
  * Класс взаимодействия с telegram API 
@@ -17,6 +23,8 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 public class TelegramBot  extends TelegramLongPollingBot{
 	
 	private Translator trans;
+	
+	private Dictionary dictionary;
 	
 	private String token;
 	
@@ -29,15 +37,48 @@ public class TelegramBot  extends TelegramLongPollingBot{
 		token = (String) props.get("bot.token");
 		String translatorKey = (String) props.get("translator.key");
 		trans = new Translator(translatorKey);
+		dictionary = new Dictionary();
+	}
+	
+	private static final Logger logger = Logger.getLogger(TelegramBot.class);
+	
+	/**
+	 * Логгируем всё что прилшло от пользователей
+	 * @param update
+	 */
+	private void log(Update update) {
+		Message msg  = update.getMessage();
+		String username = msg.getFrom().getUserName(),
+				name = msg.getFrom().getFirstName(),
+				lastName = msg.getFrom().getLastName();
+		logger.info("### Сообщение от " + username + "(" + name + " " + lastName + ")" + " с запросом перевода слова: " + msg.getText() + "###");
 	}
 
 	public void onUpdateReceived(Update update) {
+		log(update);
 		String text = update.getMessage().getText();
 		SendMessage msg = new SendMessage();
 		try {
-			System.out.println(trans.translate(text));
-			
-			msg.setText(trans.translate(text));
+			String sendText;
+			if(dictionary.hasWord(text)) {
+				String lang = dictionary.detectLang(text);
+				Word word = dictionary.getTranslate(text);
+				sendText = lang.equals("en") ? word.getRu() : word.getEn(); 
+				sendText += "\n\n [Это слово уже есть в словаре]";
+			} else {
+				sendText = trans.translate(text);
+				String lang = trans.detectLang(text);
+				if(lang.equals("en")) {
+					dictionary.addWord(sendText, text);
+					sendText += "\n\n [Слово добавлено в словарь]";
+				} else if(lang.equals("ru")){
+					dictionary.addWord(text, sendText);
+					sendText += "\n\n [Слово добавлено в словарь]";
+				}
+				
+			}
+			logger.info("Перевод: " + sendText);
+			msg.setText(sendText);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
