@@ -1,5 +1,7 @@
 package ru.coutvv.tolmach.jpa.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +18,7 @@ import javax.persistence.Table;
 	@NamedQuery(name = "User.getByName", query = "select g from User g where g.name = :name"),
 	@NamedQuery(name = "User.getByFullName", query = "select g from User g where g.name = :name and g.lastname = :lastname")
 })
-public class User {
+public class User implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
