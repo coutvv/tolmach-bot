@@ -1,5 +1,7 @@
 package ru.coutvv.tolmach.jpa.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,7 @@ import javax.persistence.Table;
 @NamedQueries({ @NamedQuery(name = "Word.getRu", query = "select g from Word g where g.ru = :ru"),
 	 			@NamedQuery(name = "Word.getEn", query = "select g from Word g where g.en = :en") })
 @Table(name = "WORDS")
-public class Word {
+public class Word implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

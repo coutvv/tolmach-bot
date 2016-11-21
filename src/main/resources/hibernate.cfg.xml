@@ -15,10 +15,12 @@
         <property name="show_sql">true</property>
  
  <!--  удаление всего к * матери по окончании работы приложухи -->
-<!--         <property name="hibernate.hbm2ddl.auto">create-drop</property> -->
-		<property name="hibernate.hbm2ddl.auto">update</property>
- 
+        <property name="hibernate.hbm2ddl.auto">create</property>
+<!-- 		<property name="hibernate.hbm2ddl.auto">update</property> -->
+ 	
+ 		<mapping class="ru.coutvv.tolmach.jpa.entity.User"/>
         <mapping class="ru.coutvv.tolmach.jpa.entity.Word"/>
+        <mapping class="ru.coutvv.tolmach.jpa.entity.UserWord"/>
         
     </session-factory>
 </hibernate-configuration>
