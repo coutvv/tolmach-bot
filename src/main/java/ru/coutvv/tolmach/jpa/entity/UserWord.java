@@ -5,22 +5,27 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "USER_WORD")
-@NamedQueries({ @NamedQuery(name = "UserWord.getByUserId", query = "select g from UserWord g where (g.user in (select u from User u where u.idUser = :id))"),
-				@NamedQuery(name = "UserWord.getByUserName", query = "select g from UserWord g where (g.user in (select u from User u where u.username = :username))"),
-				@NamedQuery(name = "UserWord.getByEnWord", query = "select g from UserWord g where g.word in (select w from Word w where w.en = :en)"),
-				@NamedQuery(name = "UserWord.getByRuWord", query = "select g from UserWord g where g.word in (select w from Word w where w.ru = :ru)"),
-				@NamedQuery(name = "UserWord.getByEnWordAndUserName", query = "select g from UserWord g where (g.word in (select w from Word w where w.en = :en)) and (g.user in (select u from User u where u.username = :username))"),
-				@NamedQuery(name = "UserWord.getByRuWordAndUserName", query = "select g from UserWord g where (g.word in (select w from Word w where w.ru = :ru)) and (g.user in (select u from User u where u.username = :username))")
+@NamedQueries({ 
+//	@NamedQuery(name = "UserWord.getByUserId", query = "select g from UserWord g where (g.user in (select u from User u where u.idUser = :id))"),
+//	@NamedQuery(name = "UserWord.getByUserName", query = "select g from UserWord g where (g.user in (select u from User u where u.username = :username))"),
+//	@NamedQuery(name = "UserWord.getByEnWord", query = "select g from UserWord g where g.word in (select w from Word w where w.en = :en)"),
+//	@NamedQuery(name = "UserWord.getByRuWord", query = "select g from UserWord g where g.word in (select w from Word w where w.ru = :ru)"),
+//	@NamedQuery(name = "UserWord.getByEnWordAndUserName", query = "select g from UserWord g where (g.word in (select w from Word w where w.en = :en)) and (g.user in (select u from User u where u.username = :username))"),
+//	@NamedQuery(name = "UserWord.getByRuWordAndUserName", query = "select g from UserWord g where (g.word in (select w from Word w where w.ru = :ru)) and (g.user in (select u from User u where u.username = :username))")
+	@NamedQuery(name = "UserWord.getUserWords", query = "select g from UserWord g where g.user == :user"),
 })
 public class UserWord {
 
@@ -42,6 +47,13 @@ public class UserWord {
 	
 	@Column(name = "RATING")
 	private Long rating;
+	
+	public UserWord(User u, Word w) {
+		this.user = u;
+		this.word = w;
+		this.addDate = new Date();
+		this.lastDate = new Date();
+	}
 
 	public Long getRating() {
 		return rating;
@@ -75,7 +87,8 @@ public class UserWord {
 		this.id = id;
 	}
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
 	public User getUser() {
 		return user;
 	}
@@ -84,7 +97,8 @@ public class UserWord {
 		this.user = user;
 	}
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
 	public Word getWord() {
 		return word;
 	}
@@ -92,4 +106,5 @@ public class UserWord {
 	public void setWord(Word word) {
 		this.word = word;
 	}
+	
 }

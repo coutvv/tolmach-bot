@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.TelegramBotsApi;
 
-import ru.coutvv.tolmach.bot.TelegramBot;
+import ru.coutvv.tolmach.bot.TolmachBot;
 
 /**
  * Входная точка
@@ -20,7 +20,7 @@ public class EntryPoint {
 	private static final Logger logger = Logger.getLogger(EntryPoint.class);
 
 	public static void main(String[] args) throws IOException, TelegramApiException {
-		TelegramBot bot = new TelegramBot(PROPERTIES);
+		TolmachBot bot = new TolmachBot(PROPERTIES);
 		TelegramBotsApi api = new TelegramBotsApi();
 		api.registerBot(bot);
 		logger.info("### TOLMACH WAS STARTED ###");

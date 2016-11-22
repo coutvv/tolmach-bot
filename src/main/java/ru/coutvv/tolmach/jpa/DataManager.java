@@ -45,6 +45,10 @@ public class DataManager {
 		em.getTransaction().commit();
 	}
 	
+	public boolean hasWord(String word) {
+		return getWordByRu(word) != null || getWordByEn(word) != null;
+	}
+	
 	/** Пользователи **/
 	
 	public void saveUser(User user) {
@@ -75,31 +79,34 @@ public class DataManager {
 	}
 	
 	public List<UserWord> getUserWords(final String username) {
-		List<UserWord> userWords = em.createNamedQuery("UserWord.getByUserName", UserWord.class)
-				.setParameter("username", username).getResultList();
+		User user = getUserByUsername(username);
+		List<UserWord> userWords = em.createNamedQuery("UserWord.getUserWords", UserWord.class)
+				.setParameter("user", user).getResultList();
 		return userWords;
 	}
 	
-	public UserWord getUserWordByEnWord(final String en, final String username) {
-		
-		List<UserWord> userWords = em.createNamedQuery("UserWord.getByEnWordAndUserName", UserWord.class)
-									.setParameter("username", username)
-									.setParameter("en", en).getResultList();
-		if(userWords == null || userWords.size() == 0) return null;
-			return userWords.get(0);
-	}
-	public UserWord getUserWordByRuWord(final String ru, final String username) {
-		
-		List<UserWord> userWords = em.createNamedQuery("UserWord.getByRuWordAndUserName", UserWord.class)
-									.setParameter("username", username)
-									.setParameter("ru", ru).getResultList();
-		if(userWords == null || userWords.size() == 0) return null;
-			return userWords.get(0);
-	}
+//	public UserWord getUserWordByEnWord(final String en, final String username) {
+//		
+//		List<UserWord> userWords = em.createNamedQuery("UserWord.getByEnWordAndUserName", UserWord.class)
+//									.setParameter("username", username)
+//									.setParameter("en", en).getResultList();
+//		if(userWords == null || userWords.size() == 0) return null;
+//			return userWords.get(0);
+//	}
+//	
+//	public UserWord getUserWordByRuWord(final String ru, final String username) {
+//		
+//		List<UserWord> userWords = em.createNamedQuery("UserWord.getByRuWordAndUserName", UserWord.class)
+//									.setParameter("username", username)
+//									.setParameter("ru", ru).getResultList();
+//		if(userWords == null || userWords.size() == 0) return null;
+//			return userWords.get(0);
+//	}
 	
 	public void saveUserWord(UserWord uw) {
 		em.getTransaction().begin();
 		em.persist(uw);
 		em.getTransaction().commit();
 	}
+	
 }

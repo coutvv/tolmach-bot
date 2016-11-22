@@ -1,4 +1,4 @@
-package ru.coutvv.tolmach.utils;
+package ru.coutvv.tolmach.dictionary;
 
 import ru.coutvv.tolmach.jpa.DataManager;
 import ru.coutvv.tolmach.jpa.entity.Word;

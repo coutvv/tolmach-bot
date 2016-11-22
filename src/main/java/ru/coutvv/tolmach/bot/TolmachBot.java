@@ -11,8 +11,8 @@ import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
+import ru.coutvv.tolmach.dictionary.Dictionary;
 import ru.coutvv.tolmach.jpa.entity.Word;
-import ru.coutvv.tolmach.utils.Dictionary;
 import ru.coutvv.tolmach.utils.Translator;
 
 /**
@@ -20,8 +20,11 @@ import ru.coutvv.tolmach.utils.Translator;
  * 
  * @author lomovtsevrs
  */
-public class TelegramBot  extends TelegramLongPollingBot{
+public class TolmachBot  extends TelegramLongPollingBot{
 	
+	/**
+	 * Переводчик
+	 */
 	private Translator trans;
 	
 	private Dictionary dictionary;
@@ -30,7 +33,7 @@ public class TelegramBot  extends TelegramLongPollingBot{
 	
 	private final String NAME = "coutvv";
 	
-	public TelegramBot(String propFileName) throws IOException {
+	public TolmachBot(String propFileName) throws IOException {
 		InputStream in = this.getClass().getClassLoader().getResourceAsStream(propFileName);
 		Properties props = new Properties();
 		props.load(in);
@@ -40,7 +43,7 @@ public class TelegramBot  extends TelegramLongPollingBot{
 		dictionary = new Dictionary();
 	}
 	
-	private static final Logger logger = Logger.getLogger(TelegramBot.class);
+	private static final Logger logger = Logger.getLogger(TolmachBot.class);
 	
 	/**
 	 * Логгируем всё что прилшло от пользователей
