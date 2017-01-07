@@ -46,7 +46,7 @@ public class TolmachBot  extends TelegramLongPollingBot{
 	private static final Logger logger = Logger.getLogger(TolmachBot.class);
 	
 	/**
-	 * Логгируем всё что прилшло от пользователей
+	 * Логгируем всё что пришло от пользователей
 	 * @param update
 	 */
 	private void log(Update update) {
@@ -57,6 +57,7 @@ public class TolmachBot  extends TelegramLongPollingBot{
 		logger.info("### Сообщение от " + username + "(" + name + " " + lastName + ")" + " с запросом перевода слова: " + msg.getText() + "###");
 	}
 
+	@Override
 	public void onUpdateReceived(Update update) {
 		log(update);
 		String text = update.getMessage().getText();
@@ -94,6 +95,7 @@ public class TolmachBot  extends TelegramLongPollingBot{
 		}
 	}
 
+	@Override
 	public String getBotUsername() {
 		return  NAME;
 	}
