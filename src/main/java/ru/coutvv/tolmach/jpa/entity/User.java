@@ -32,6 +32,9 @@ public class User {
 	@Column(name = "LASTNAME")
 	private String lastname;
 	
+	public User(){
+		
+	}
 
 	public User(String username, String name, String lastname) {
 		super();

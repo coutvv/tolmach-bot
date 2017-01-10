@@ -6,17 +6,17 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/tolmach</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/my</property>
         <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">123qweASD</property>
+        <property name="hibernate.connection.password">fall5gr4</property>
  
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
  
         <property name="show_sql">true</property>
  
  <!--  удаление всего к * матери по окончании работы приложухи -->
-        <property name="hibernate.hbm2ddl.auto">create</property>
-<!-- 		<property name="hibernate.hbm2ddl.auto">update</property> -->
+<!--    <property name="hibernate.hbm2ddl.auto">create</property> -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
  	
  		<mapping class="ru.coutvv.tolmach.jpa.entity.User"/>
         <mapping class="ru.coutvv.tolmach.jpa.entity.Word"/>

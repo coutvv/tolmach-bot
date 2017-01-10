@@ -9,6 +9,7 @@ import ru.coutvv.tolmach.jpa.entity.UserWord;
 import ru.coutvv.tolmach.jpa.entity.Word;
 
 public class TestHibernate extends TestCase {
+	
 	@Test
 	public void testDb() {
 		DataManager dm = new DataManager();

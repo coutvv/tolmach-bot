@@ -79,9 +79,8 @@ public class DataManager {
 	}
 	
 	public List<UserWord> getUserWords(final String username) {
-		User user = getUserByUsername(username);
 		List<UserWord> userWords = em.createNamedQuery("UserWord.getUserWords", UserWord.class)
-				.setParameter("user", user).getResultList();
+				.setParameter("user", username).getResultList();
 		return userWords;
 	}
 	
